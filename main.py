@@ -1,3 +1,4 @@
+'''
 print("Maidacenco Anastasia")
 
 numele = "Maidacenco Anastasia"
@@ -12,3 +13,9 @@ if name == "Adela":
     print("Greetengs Ms "+name+"! "+"I hope you are doing well!")
 else:
     print(salutare(name))
+'''
+# dictionar
+inventar = {"scaune":33,"mese":22,"tabla":1}
+res = list(inventar.values())
+print(sum(res))
+print(res)
