@@ -14,3 +14,29 @@ df = df.dropna()
 # verification
 null_v= df.isna().sum()
 print(null_v)
+
+print(df['rating_score'].value_counts())
+# delete user id
+df = df.drop(['user_id'],axis=1)
+df.info()
+plt.hist(df['critic_likes'])
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
