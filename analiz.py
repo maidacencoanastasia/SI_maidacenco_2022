@@ -18,9 +18,26 @@ print(null_v)
 print(df['rating_score'].value_counts())
 # delete user id
 df = df.drop(['user_id'],axis=1)
-df.info()
-plt.hist(df['critic_likes'])
+#df.info()
+#plt.hist(df['critic_likes'])
+#plt.show()
+
+# plt.hist2d(df['critic_likes'],df['critic_comments'])
+# plt.show()
+
+#sns.histplot(df, x = 'critic_likes', y='critic_comments', hue='rating_score', palette='viridis', kde=True)
+##plt.legend(loc='upper left', title='rating_score')
+#plt.show()
+print(df['user_trialist'].value_counts())
+sns.countplot(data=df, x="user_trialist",hue='rating_score')
 plt.show()
+
+
+
+
+
+
+
 
 
 
