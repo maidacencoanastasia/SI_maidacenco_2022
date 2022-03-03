@@ -28,9 +28,29 @@ df = df.drop(['user_id'],axis=1)
 #sns.histplot(df, x = 'critic_likes', y='critic_comments', hue='rating_score', palette='viridis', kde=True)
 ##plt.legend(loc='upper left', title='rating_score')
 #plt.show()
-print(df['user_trialist'].value_counts())
-sns.countplot(data=df, x="user_trialist",hue='rating_score')
+# print(df['user_trialist'].value_counts())
+# sns.countplot(data=df, x="user_trialist",hue='rating_score')
+# plt.show()
+# (df
+# .groupby('user_trialist')['rating_score']\
+# .value_counts(normalize=True)\
+# .mul(100)\
+# .rename('percent')
+# .reset_index()
+# .pipe((sns.catplot,'data'),x="user_trialist",y = 'percent', hue='rating_score', kind='bar'))
+# plt.show()
+
+(df
+.groupby('user_subscriber')['rating_score']\
+.value_counts(normalize=True)\
+.mul(100)\
+.rename('percent')
+.reset_index()
+.pipe((sns.catplot,'data'),x="user_subscriber",y = 'percent', hue='rating_score', kind='bar'))
 plt.show()
+
+
+
 
 
 
