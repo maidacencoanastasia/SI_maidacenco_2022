@@ -49,6 +49,7 @@ df = df.drop(['user_id'],axis=1)
 # .pipe((sns.catplot,'data'),x="user_subscriber",y = 'percent', hue='rating_score', kind='bar'))
 # plt.show()
 #########################################################################
+'''
 (df
 .groupby('user_has_payment_method')['rating_score']\
 .value_counts(normalize=True)\
@@ -57,11 +58,17 @@ df = df.drop(['user_id'],axis=1)
 .reset_index()
 .pipe((sns.catplot,'data'),x="user_has_payment_method",y = 'percent', hue='rating_score', kind='bar'))
 plt.show()
+'''
 
+#print(df.columns)
 
+'''
+sns.catplot(x="rating_score", y="movie_release_year", hue= "rating_score", data = df)
+plt.show()
 
-
-
+sns.countplot(data = df, x="movie_title_language", hue="rating_score")
+plt.show()
+'''
 
 
 
