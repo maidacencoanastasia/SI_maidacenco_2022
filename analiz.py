@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from imperio import BoxCoxTransformer, YeoJohnsonTransformer
+from kydavra import PValueSelector
 
 df = pd.read_csv("dataset/exported_data.csv")
 print(df)
@@ -68,15 +70,27 @@ plt.show()
 
 sns.countplot(data = df, x="movie_title_language", hue="rating_score")
 plt.show()
+
+sns.catplot(data = df, x="rating_score",y ="movie_popularity", hue="rating_score")
+plt.show()
 '''
+avg_list_comments = df['avg_list_comments'] = df['total_list_comments']/df['total_number_of_lists']
+avg_list_followers = df['avg_list_followers'] = df['total_list_followers']/df['total_number_of_lists']
+avg_list_movis_number = df['avg_list_movis_number'] = df['total_list_movie_number']/df['total_number_of_lists']
 
+print(avg_list_comments,avg_list_followers, avg_list_movis_number)
+non_informative_columns = ['user_trialist','user_subscriber','user_eligible_for_trial', 'user_has_payment_method']
+df = df.drop(non_informative_columns, axis = 1)
+print(df.columns)
 
-
-
-
-
-
-
+box_cox = BoxCoxTransformer()
+new_df = box_cox.apply(df, columns=['critic_likes', 'critic_comments'], target='rating_score')
+print(new_df)
+plt.hist(new_df['critic_comments'])
+plt.show()
+yeo_johnson = YeoJohnsonTransformer(l=2)
+#new_df = .apply(df, columns = ['critic_likes', 'critic_comments'], target = 'raiting_score')
+df = df.drop(['movie_title_language'],axis =1)
 
 
 
