@@ -8,8 +8,8 @@ page = requests.get(URL)
 soup = BeautifulSoup(page.content, "html.parser")
 # print(soup)
 
-#results = soup.find(class_="job")
-#print(results)
+# results = soup.find(class_="job")
+# print(results)
 #
 title = soup.find_all("title")
 for i in title:
@@ -31,8 +31,6 @@ job_detail = soup.find_all("p", class_="detail")
 for i in job_detail:
     print(i.text, "\n")
 
-
-for i in range(0,len(headings)):
-    print(headings[i].text,"\n")
+for i in range(0, len(headings)):
+    print(headings[i].text, "\n")
     print(job_info[i].text)
-

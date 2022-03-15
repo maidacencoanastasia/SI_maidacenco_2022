@@ -8,6 +8,6 @@ print(html)
 pattern = "<title.*?>.*?</title.*?>"
 match_results = re.search(pattern, html, re.IGNORECASE)
 title = match_results.group()
-title = re.sub("<.*?>", "", title) # Remove HTML tags
+title = re.sub("<.*?>", "", title)  # Remove HTML tags
 
 print(title)

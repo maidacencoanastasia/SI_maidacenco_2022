@@ -15,7 +15,7 @@ else:
     print(salutare(name))
 '''
 # dictionar
-inventar = {"scaune":33,"mese":22,"tabla":1}
+inventar = {"scaune": 33, "mese": 22, "tabla": 1}
 res = list(inventar.values())
 print(sum(res))
 print(res)

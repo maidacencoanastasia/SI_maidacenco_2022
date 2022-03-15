@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import io
+
 # 1
 imgs = np.array([np.load(r"images/car_{idx}.npy".format(idx=i)) for i in range(9)])
-#print(imgs)
+# print(imgs)
 #
 # 2
 suma = np.sum(imgs)
@@ -11,7 +12,7 @@ print(suma)
 #
 # 3
 sum_c = np.sum(imgs, axis=(1, 2))
-#print(sum_c)
+# print(sum_c)
 #
 # 4
 print(np.argmax(np.sum(imgs, axis=(1, 2))))

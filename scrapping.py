@@ -1,8 +1,9 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
+
 # url = "http://olympus.realpython.org/profiles/dionysus"
-url ="https://suvitruf.ru/2022/03/01/10744/weekly-gamedev-59-27-february-2022/"
+url = "https://suvitruf.ru/2022/03/01/10744/weekly-gamedev-59-27-february-2022/"
 page = urlopen(url)
 html = page.read().decode("utf-8")
 soup = BeautifulSoup(html, "html.parser")
@@ -24,14 +25,10 @@ for i in links:
     print(i)
 paragraf = soup.find_all("p")
 for i in paragraf:
-    print(i.text,"\n")
-
-
-
-
+    print(i.text, "\n")
 
 # pattern = "<h3.*?>.*?</h3.*?>"
 # match_results = re.search(pattern, html, re.IGNORECASE)
 # title = match_results.group()
 # title = re.sub("<.*?>", "", title) # Remove HTML tags
-#print(title)
+# print(title)
