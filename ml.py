@@ -10,6 +10,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import pickle
 
 models = [
     KNeighborsRegressor(),
@@ -53,31 +55,6 @@ def test_model(df, models, target):
     return mse, mae, mse_normalized, mae_normalized
 
 
-#
-#
-# def test_model(df, models, target):
-#     x = (df.drop([target], axis=1)).values
-#     y = df[target].values
-#     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=42)
-#     mse, mae, mse_normalized, mae_normalized = {}, {}, {}, {}
-#     scaler = StandardScaler
-#     for i in range(len(models)):
-#         models[i].fit(x_train, y_train)
-#         y_pred = models[i].predict(x_test)
-#         mae[str(models[i].__class__())] = mean_absolute_error(y_pred, y_test)
-#         mse[str(models[i].__class__())] = mean_squared_error(y_pred, y_test)
-#         x_train_norm = scaler.fit_transform(x_train)
-#         x_test_norm = scaler.transform(x_test)
-#
-#         models[i].fit(x_train_norm, y_train)
-#         y_pred = models[i].predict(x_test_norm)
-#
-#         mae_normalized[str(models[i].__class__())] = mean_absolute_error(y_pred, y_test)
-#         mse_normalized[str(models[i].__class__())] = mean_squared_error(y_pred, y_test)
-#
-#     return mse, mae, mse_normalized, mae_normalized
-#
-
 # read data from cv
 df_init = pd.read_csv('dataset/innitial.csv')
 df_selected = pd.read_csv('dataset/selected.csv')
@@ -86,8 +63,36 @@ mse, mae, mse_normalized, mae_normalized = test_model(df_init, models, 'rating_s
 
 print(mse, mae, mse_normalized, mae_normalized)
 
-plt.figure(figsize=(19,6))
-plt.bar(mse.keys(), mse.values(), label = 'non-norm')
-plt.bar(mse_normalized.keys(), mse_normalized.values(), width=0.2, label = 'norm')
+plt.figure(figsize=(19, 6))
+plt.bar(mse.keys(), mse.values(), label='non-norm')
+plt.bar(mse_normalized.keys(), mse_normalized.values(), width=0.2, label='norm')
 plt.legend()
+plt.show()
+
+mse, mae, mse_normalized, mae_normalized = test_model(df_selected, models, 'rating_score')
+print(mse, mae, mse_normalized, mae_normalized)
+
+plt.figure(figsize=(19, 6))
+plt.bar(mse.keys(), mse.values(), label='non-norm')
+plt.bar(mse_normalized.keys(), mse_normalized.values(), width=0.2, label='norm')
+plt.legend()
+plt.show()
+
+pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('linear_model', LinearRegression())
+])
+X = df_selected.drop(['rating_score'], axis=1).values
+Y = df_selected['rating_score'].values
+
+pipe.fit(X, Y)
+
+pickle.dump(pipe, open('pipe.pkl', 'wb'))
+print(pipe['linear_model'].coef_)
+
+coef_names = list(df_selected.iloc[:, :-1].columns)
+coef_values = list(pipe['linear_model'].coef_)
+
+plt.figure(figsize=(16, 9))
+plt.bar(coef_names, coef_values)
 plt.show()
